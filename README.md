@@ -1,0 +1,1 @@
+Penggunaan: python [atau python3] covid.py

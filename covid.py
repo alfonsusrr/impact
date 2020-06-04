@@ -47,11 +47,13 @@ def save():
             print("File data statistik sudah tersimpan")
     else:
         with open(filename, "a") as file:
-            file_writer = csv.writer(file)
+            file_writer = csv.writer(file, lineterminator='\n')
             for x in range(len(data_new)):
                 data_add = [data_new[x]['provinsi'], data_new[x]['tanggal'], data_new[x]['penderita'], data_new[x]['sembuh'], data_new[x]['kematian']]
                 file_writer.writerow(data_add)
         print("File data statistik sudah tersimpan")
+    for x in range(len(data_new)):
+        data_covid.append(data_new[x].copy())
 
 def show_prov(prov):
     if prov.lower() not in provinsi_list:
@@ -60,7 +62,7 @@ def show_prov(prov):
         data = []
         for x in range(len(data_covid)):
             if data_covid[x]["provinsi"].lower() == prov.lower():
-                data.append(data_covid[x])
+                data.append(data_covid[x].copy())
                 
         for y in range(len(data)):
             data[y]['tanggal'] = data[y]['tanggal'].split('/')
