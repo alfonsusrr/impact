@@ -17,4 +17,5 @@ Jalankan program dengan: python [atau python3] covid.py
 5. Ketika keluar dari program (dengan key: exit) maka program akan otomasis menyimpan data yang ditambah
 
 Program ini dibuat sebagai tugas "PROBLEM SOLVING KOMPUTER - SEMIFINAL IMPACT 2020"
+
 Dibuat oleh: Tim Altair - Impact 2020
