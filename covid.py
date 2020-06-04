@@ -274,8 +274,8 @@ def main():
             run = False
         elif cmd.lower() == 'help':
             print("add: menambah data statistik")
-            print("average [tanggal]: menampilkan rata rata penambahan pada tanggal tertentu")
-            print("exit keluar dari program")
+            print("average [-tanggal]: menampilkan rata rata penambahan pada tanggal tertentu")
+            print("exit: keluar dari program")
             print("help: bantuan untuk menggunakan program")
             print("laju [-provinsi] [-tanggal]: menampilkan laju penambahan pada suatu provinsi hingga tanggal tertentu")
             print("save: menyimpan pembaharuan data")
@@ -350,7 +350,21 @@ def main():
             save()
             data_new.clear()
             print("----------")
-
+        else:
+            print("Command tidak ditemukan")
+            print("----------")
+            print("Daftar command yang ada:")
+            print("add: menambah data statistik")
+            print("average [-tanggal]: menampilkan rata rata penambahan pada tanggal tertentu")
+            print("exit: keluar dari program")
+            print("help: bantuan untuk menggunakan program")
+            print("laju [-provinsi] [-tanggal]: menampilkan laju penambahan pada suatu provinsi hingga tanggal tertentu")
+            print("save: menyimpan pembaharuan data")
+            print("sort [-sort by (penderita/sembuh/kematian)] [-tanggal]: menampilkan urutan data pada tanggal tertentu")
+            print("show [-show by (tanggal)] [-specific tanggal]: menampilkan urutan data pada tanggal tertentu")
+            print("show [-show by (provinsi)] [-specific provinsi]: menampilkan urutan data pada tanggal tertentu")
+            print("top [-tanggal]: menampilkan data terbanyak dan tersedikit pada tanggal tertentu")
+            print("----------")
     if len(data_new) != 0:
         save()
 
