@@ -30,7 +30,7 @@ def save():
         confirm = input("Simpan semua data, termasuk data lama (y/n): ")
         if confirm == "y":
             with open(filename, "w") as file:
-                file_writer = csv.writer(file)
+                file_writer = csv.writer(file, lineterminator='\n')
                 for i in range(len(data_covid)):
                     data_old = [data_covid[i]['provinsi'], data_covid[i]['tanggal'], data_covid[i]['penderita'], data_covid[i]['sembuh'], data_covid[i]['kematian']]
                     file_writer.writerow(data_old)
@@ -40,7 +40,7 @@ def save():
             print("File data statistik sudah tersimpan")
         else:
             with open(filename, "w") as file:
-                file_writer = csv.writer(file)
+                file_writer = csv.writer(file, lineterminator='\n')
                 for x in range(len(data_new)):
                     data_add = [data_new[x]['provinsi'], data_new[x]['tanggal'], data_new[x]['penderita'], data_new[x]['sembuh'], data_new[x]['kematian']]
                     file_writer.writerow(data_add)
@@ -60,6 +60,7 @@ def show_prov(prov):
         print(f"Data tidak ditemukan untuk provinsi {prov}")
     else:
         data = []
+        data.clear()
         for x in range(len(data_covid)):
             if data_covid[x]["provinsi"].lower() == prov.lower():
                 data.append(data_covid[x].copy())
@@ -77,9 +78,10 @@ def show_prov(prov):
 
 def show_date(date):
     data = []
+    data.clear()
     for x in range(len(data_covid)):
         if data_covid[x]["tanggal"] == date:
-            data.append(data_covid[x])
+            data.append(data_covid[x].copy())
     if len(data) == 0:
         print(f"Data tidak ditemukan pada tanggal {date}")
     else:
@@ -92,9 +94,10 @@ def show_date(date):
 
 def sort(by, date):
     data = []
+    data.clear()
     for x in range(len(data_covid)):
         if data_covid[x]["tanggal"] == date:
-            data.append(data_covid[x])
+            data.append(data_covid[x].copy())
     if len(data) == 0:
         print(f"Data tidak ditemukan pada tanggal {date}")
     else:
@@ -246,15 +249,17 @@ def laju(prov, date):
                         sembuh += data[y]['sembuh']
                         kematian += data[y]['kematian']
                         total_laju += 1
+        if total_laju <= 0:
+            print(f"Data tidak ditemukan untuk laju hingga tanggal {date_print}")
+        else:
+            laju_penderita = int(round(penderita/total_laju, 0))
+            laju_sembuh = int(round(sembuh/total_laju, 0))
+            laju_kematian = int(round(kematian/total_laju, 0))
         
-        laju_penderita = int(round(penderita/total_laju, 0))
-        laju_sembuh = int(round(sembuh/total_laju, 0))
-        laju_kematian = int(round(kematian/total_laju, 0))
-        
-        print(f"Laju rata-rata penyebaran dan pencegahan COVID-19 di provinsi {prov} sampai dengan tanggal {date_print}")
-        print(f"Penderita : {laju_penderita}")
-        print(f"Sembuh    : {laju_sembuh}")
-        print(f"Kematian  : {laju_kematian}")
+            print(f"Laju rata-rata penyebaran dan pencegahan COVID-19 di provinsi {prov} sampai dengan tanggal {date_print}")
+            print(f"Penderita : {laju_penderita}")
+            print(f"Sembuh    : {laju_sembuh}")
+            print(f"Kematian  : {laju_kematian}")
         
 
 def main():
