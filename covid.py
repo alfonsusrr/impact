@@ -140,6 +140,8 @@ def add():
     prov = "falsedata"
     while prov.lower() not in provinsi_list:
         prov = input("Masukkan nama provinsi: ")
+        if prov.lower() not in provinsi_list:
+            print(f"Nama provinsi tidak ditemukan, masukkan nama provinsi yang sesuai")
     date = input("Masukkan tanggal pencatatan (DD/MM/YYYY): ")
     penderita = input("Masukkan jumlah penderita yang tercatat: ")
     sembuh = input("Masukkan jumlah penderita yang sudah sembuh: ")
