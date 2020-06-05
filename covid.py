@@ -137,7 +137,9 @@ def average(date):
     
 def add():
     print("Masukkan informasi statistik COVID-19 yang ditambahkan:")
-    prov = input("Masukkan nama provinsi: ")
+    prov = "falsedata"
+    while prov.lower() not in provinsi_list:
+        prov = input("Masukkan nama provinsi: ")
     date = input("Masukkan tanggal pencatatan (DD/MM/YYYY): ")
     penderita = input("Masukkan jumlah penderita yang tercatat: ")
     sembuh = input("Masukkan jumlah penderita yang sudah sembuh: ")
