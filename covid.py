@@ -1,5 +1,4 @@
 import csv
-import os
 
 data_covid = []
 provinsi_list = []
@@ -7,53 +6,34 @@ data_new = []
 
 def load():
     filename = input("Masukkan nama file data statistik: ")
-    directory = os.path.isfile(filename)
-    if not directory:
+    file = open(filename, "r")
+    if not file:
         print("File tidak ditemukan")
-        return 1
     else:
-        with open(filename, "r") as file:
-            file_reader = csv.reader(file)
-            for provinsi, tanggal, penderita, sembuh, kematian in file_reader:
-                if provinsi.lower() != "provinsi":
-                    data = {"provinsi" : provinsi, "tanggal" : tanggal, "penderita" : int(penderita), "sembuh" : int(sembuh), "kematian" : int(kematian)}
-                    if provinsi not in provinsi_list:
-                        provinsi_list.append(provinsi.lower())
-                    data_covid.append(data)
+        file_reader = csv.reader(file)
+        for provinsi, tanggal, penderita, sembuh, kematian in file_reader:
+            if provinsi.lower() != "provinsi":
+                data = {"provinsi" : provinsi, "tanggal" : tanggal, "penderita" : int(penderita), "sembuh" : int(sembuh), "kematian" : int(kematian)}
+                if provinsi not in provinsi_list:
+                    provinsi_list.append(provinsi.lower())
+                data_covid.append(data)
+        file.close()
         print("File data statistik sudah terbaca")
-        return 0
 
 def save():
     filename = input("Masukkan nama file data statistik: ")
-    directory = os.path.isfile(filename)
-    if not directory:
-        confirm = input("Simpan semua data, termasuk data lama (y/n): ")
-        if confirm == "y":
-            with open(filename, "w") as file:
-                file_writer = csv.writer(file, lineterminator='\n')
-                for i in range(len(data_covid)):
-                    data_old = [data_covid[i]['provinsi'], data_covid[i]['tanggal'], data_covid[i]['penderita'], data_covid[i]['sembuh'], data_covid[i]['kematian']]
-                    file_writer.writerow(data_old)
-                for x in range(len(data_new)):
-                    data_add = [data_new[x]['provinsi'], data_new[x]['tanggal'], data_new[x]['penderita'], data_new[x]['sembuh'], data_new[x]['kematian']]
-                    file_writer.writerow(data_add)
-            print("File data statistik sudah tersimpan")
-        else:
-            with open(filename, "w") as file:
-                file_writer = csv.writer(file, lineterminator='\n')
-                for x in range(len(data_new)):
-                    data_add = [data_new[x]['provinsi'], data_new[x]['tanggal'], data_new[x]['penderita'], data_new[x]['sembuh'], data_new[x]['kematian']]
-                    file_writer.writerow(data_add)
-            print("File data statistik sudah tersimpan")
+    file = open(filename, "a")
+    if not file:
+        print("File tidak ditemukan")
     else:
-        with open(filename, "a") as file:
-            file_writer = csv.writer(file, lineterminator='\n')
-            for x in range(len(data_new)):
-                data_add = [data_new[x]['provinsi'], data_new[x]['tanggal'], data_new[x]['penderita'], data_new[x]['sembuh'], data_new[x]['kematian']]
-                file_writer.writerow(data_add)
+        file_writer = csv.writer(file, lineterminator='\n')
+        for x in range(len(data_new)):
+            data_add = [data_new[x]['provinsi'], data_new[x]['tanggal'], data_new[x]['penderita'], data_new[x]['sembuh'], data_new[x]['kematian']]
+            file_writer.writerow(data_add)
+        file.close()
         print("File data statistik sudah tersimpan")
-    for x in range(len(data_new)):
-        data_covid.append(data_new[x].copy())
+        for x in range(len(data_new)):
+            data_covid.append(data_new[x].copy())
 
 def show_prov(prov):
     if prov.lower() not in provinsi_list:
