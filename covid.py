@@ -6,9 +6,11 @@ data_new = []
 
 def load():
     filename = input("Masukkan nama file data statistik: ")
-    file = open(filename, "r")
-    if not file:
+    try:
+        file = open(filename, "r")
+    except:
         print("File tidak ditemukan")
+        return 1
     else:
         file_reader = csv.reader(file)
         for provinsi, tanggal, penderita, sembuh, kematian in file_reader:
@@ -19,12 +21,15 @@ def load():
                 data_covid.append(data)
         file.close()
         print("File data statistik sudah terbaca")
+        return 0
 
 def save():
     filename = input("Masukkan nama file data statistik: ")
-    file = open(filename, "a")
-    if not file:
+    try:
+        file = open(filename, "w")
+    except:
         print("File tidak ditemukan")
+        return 1
     else:
         file_writer = csv.writer(file, lineterminator='\n')
         for x in range(len(data_new)):
@@ -34,6 +39,7 @@ def save():
         print("File data statistik sudah tersimpan")
         for x in range(len(data_new)):
             data_covid.append(data_new[x].copy())
+        return 0
 
 def show_prov(prov):
     if prov.lower() not in provinsi_list:
