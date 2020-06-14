@@ -26,7 +26,7 @@ def load():
 def save():
     filename = input("Masukkan nama file data statistik: ")
     try:
-        file = open(filename, "w")
+        file = open(filename, "a")
     except:
         print("File tidak ditemukan")
         return 1
