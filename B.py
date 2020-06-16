@@ -38,7 +38,7 @@ def main():
         image.append("O > |")
         t_col += t_tembok
     vm_3 = -1 * vm_2
-    print(f"{L} {V_2} {vm_2}")
+
 
 
     while V_2 > 0:
@@ -62,8 +62,7 @@ def main():
             n_tembok += 1
             image.append("O > |")
         vm_3 = -1 * vm_2
-        print("-----")
-        print(f"{L} {V_2} {vm_2}")
+        
     
     while abs(V_2) < abs(vm_3):
         t_ToCol = (2 * L) / (vm_2 - abs(V_2))
@@ -86,14 +85,8 @@ def main():
             t_col += t_tembok
         vm_3 = -1 * vm_2
 
-        print("****")
-        print(f"{L} {V_2} {vm_2}")
-    n = n_benda + n_tembok
+        n = n_benda + n_tembok
     print(f"{n} {round(t_col, 2)} {round(d_min, 2)}")
     
-    
-    for x in range(len(image)):
-        print(image[x], end=' then ')
-    print('End')
 if __name__ == '__main__':
     main()
